@@ -4,10 +4,23 @@ import textwrap
 from datetime import datetime
 
 
-
 # Setting up streamlit page configuration
 st.set_page_config(page_title="LLM chatbot", page_icon="🤖", layout="wide")
 st.title("🧠 LLM Playground")
+
+
+# intializing hf_token
+if 'hf_token' not in st.session_state:
+    st.session_state.hf_token = None 
+    
+# input hf_token
+hf_token_input = st.sidebar.text_input(
+    "Enter your Hugging face token",
+    type="password",
+    key="hf_token_input",
+    placeholder="hf_*******************"
+) 
+
 
 # Initialize session state for messages
 if 'messages' not in st.session_state:
@@ -21,7 +34,10 @@ st.sidebar.title("Chat Settings")
 # model selection
 model_choice = st.sidebar.selectbox(
     "Select a model",
-    ["mistralai/Mistral-7B-Instruct-v0.2", "gpt-3.5-turbo"],
+    [
+        "meta-llama/Meta-Llama-3-8B-Instruct",
+        "meta-llama/Meta-Llama-3-70B-Instruct"
+    ]    
 )
 
 # initializing clear chat button
@@ -49,7 +65,7 @@ if user_input:
     # Generate bot response
     with st.spinner("Bot is typing..."):
         try:
-            reply = get_response(messages=st.session_state.messages, model=model_choice)
+            reply = get_response(messages=st.session_state.messages, model=model_choice, token=st.session_state.hf_token_input)
             # Append bot response to session state
             st.session_state.messages.append(
                 {"role": "assistant", "content": reply}

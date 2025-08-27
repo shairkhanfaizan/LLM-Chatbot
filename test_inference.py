@@ -1,16 +1,12 @@
 from huggingface_hub import InferenceClient
-from dotenv import load_dotenv
-import os
 
-load_dotenv()
-HF_TOKEN = os.getenv("HF_TOKEN")
 
-def get_response(messages, model):
-    if not HF_TOKEN:
-        raise ValueError("Hugging Face API key not found. Please set the HF_TOKEN environment variable.")
+def get_response(messages, model, token):
+    if not token:
+        raise ValueError("Hugging Face API key is required.")
     client = InferenceClient(
         model=model,
-        token=HF_TOKEN
+        token=token
     )
     response = client.chat_completion(
         messages=messages,

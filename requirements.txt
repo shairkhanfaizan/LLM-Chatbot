@@ -1,4 +1,3 @@
 streamlit
 huggingface_hub
 textwrap3
-python-dotenv
