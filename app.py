@@ -54,9 +54,15 @@ for message in st.session_state.messages:
         st.markdown(f"🤖 **Bot**: {message['content']}")
 
 # user input
-user_input = st.text_input("💬 Ask me anything!", key="user_input")
+col1, col2 = st.columns([4,1])
+with col1:
+    user_input = st.text_input("💬 Ask me anything!", key="user_input")
 
-if user_input:
+with col2:
+    send_button = st.button("Send")
+
+
+if send_button and user_input:
     # Append user message to session state
     st.session_state.messages.append(
         {"role": "user", "content": user_input}
