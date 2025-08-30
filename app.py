@@ -59,7 +59,7 @@ with col1:
     user_input = st.text_input("💬 Ask me anything!", key="user_input")
 
 with col2:
-    send_button = st.button("Send")
+    send_button = st.button("Send", key="send_button")
 
 
 if send_button and user_input:
@@ -74,8 +74,9 @@ if send_button and user_input:
             reply = get_response(messages=st.session_state.messages, model=model_choice, token=st.session_state.hf_token_input)
             # Append bot response to session state
             st.session_state.messages.append(
-                {"role": "assistant", "content": reply}
+                {"role": "assistant", "content": reply}    
             )
+            st.rerun()
         except Exception as e:
             st.error(f"An error occurred: {e}")
 
