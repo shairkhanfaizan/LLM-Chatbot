@@ -49,9 +49,9 @@ if st.sidebar.button("Clear chat"):
 # chat display
 for message in st.session_state.messages:
     if message["role"] == "user":
-        st.markdown(f"😶‍🌫️ **User**: {message['content']}")
+        st.markdown(f"😉 **User**: {message['content']}")
     elif message['role'] == "assistant":
-        st.markdown(f"🤖 **Bot**: {message['content']}")
+        st.markdown(f"🎯 **Bot**: {message['content']}")
 
 # user input
 col1, col2 = st.columns([4,1])
